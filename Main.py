@@ -57,9 +57,8 @@ def kelvin_to_fahrenheit(temp_kelvin):
 stl.markdown("<h5>Select Temperature Unit:</h5>",unsafe_allow_html=True
 )
 temp_unit = stl.radio(
-                "",
+                "Select temperature unit",
                 ('Celsius (°C)', 'Fahrenheit (°F)'),
-                label_visibility="collapsed"
 
     )
 
