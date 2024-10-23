@@ -18,7 +18,7 @@ interval = 10 #seconds
 alert_cities = ['Delhi', 'Mumbai', 'Chennai', 'Bangalore', 'Kolkata', 'Hyderabad']
 
 stl.set_page_config(page_title="WEATHER_APP ",page_icon='⚡',menu_items={       
-        'About': """ Hello User, This is Ronak . This is internship project assigned by :blue[#CodesOnBytes]!
+        'About': """ Hello User, This is Ronak .
          Github: https://github.com/Ronak-Ronu LinkedIn: www.linkedin.com/in/ronak-suthar-2532a4202 """})
 
 api_key= os.getenv('API_KEY')
