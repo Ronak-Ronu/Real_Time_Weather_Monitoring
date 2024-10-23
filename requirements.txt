@@ -1,5 +1,7 @@
-streamlit==1.39.0
-requests==2.32.3
 folium==0.17.0
+python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
 pytz==2024.2
+requests==2.32.3
+streamlit==1.39.0
+streamlit_folium==0.23.1
