@@ -24,7 +24,7 @@ stl.set_page_config(page_title="WEATHER_APP ",page_icon='⚡',menu_items={
 api_key= os.getenv('API_KEY')
 
 # Database connection for storing daily summaries
-conn = sqlite3.connect('weather_summary.db')
+conn = sqlite3.connect('weather_summary.db',check_same_thread=False)
 c = conn.cursor()
 # Create a table for storing daily summaries
 c.execute('''
@@ -37,11 +37,20 @@ c.execute('''
         dominant_condition TEXT
     )
 ''')
-conn.commit()
+def safe_commit():
+    retries = 5
+    for attempt in range(retries):
+        try:
+            conn.commit()
+            return
+        except sqlite3.OperationalError:
+            time.sleep(0.1)  # Wait a bit before retrying
+    raise Exception("Failed to commit after several retries.")
+
+# safe_commit()
+safe_commit()
 
 stl.title('Real-Time Data Processing System for :blue[WEATHER] Monitoring 🌥')
-
-
 
 
 current_date= datetime.now(local_timezone)
@@ -199,6 +208,9 @@ def display_daily_summary(city):
 
     if summary:
         city, date, avg_temp, max_temp, min_temp, dominant_condition = summary
+        avg_temp=kelvin_to_celsius(avg_temp)
+        max_temp=kelvin_to_celsius(max_temp)
+        min_temp=kelvin_to_celsius(min_temp)
         stl.write(f"### {city} - Daily Summary for {date}")
         stl.write(f"**Average Temperature:** {avg_temp:.2f}°C")
         stl.write(f"**Maximum Temperature:** {max_temp:.2f}°C")
